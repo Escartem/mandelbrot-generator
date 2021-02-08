@@ -3,8 +3,11 @@ from eta import ETA
 from PIL import Image
 from time import sleep
 from datetime import datetime
+# from numba import jit
 from argparse import ArgumentParser
+# from win10toast import ToastNotifier
 
+# toaster = ToastNotifier()
 parser = ArgumentParser()
 # parser.add_argument("--iterations", type=int, help="Number of iterations")
 # parser.add_argument("--size", type=int, help="Resolution of image")
@@ -88,6 +91,7 @@ class Mandelbrot:
         self.img.save(str(name) + '.png')
         print('Saved as ' + str(name) + '.png')
         print('')
+        # toaster.show_toast("Generation done !", "Your fractal is now fully generated !", threaded=True)
         print('==================================================\n')
         system('pause')
 
