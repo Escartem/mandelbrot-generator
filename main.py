@@ -25,10 +25,13 @@ presets = {
 }
 
 system('title Mandelbrot Generator - V.' + str(version))
+system('mode con: cols=53 lines=34')
+
 
 def title():
     system('color 3F')
     system('cls')
+    print('=====================================================\n')
     print(' __  __                 _      _ _               _')
     print('|  \/  |               | |    | | |             | |')
     print('| \  / | __ _ _ __   __| | ___| | |__  _ __ ___ | |_')
@@ -44,7 +47,7 @@ def title():
     print(' \_____|\___|_| |_|\___|_|  \__,_|\__\___/|_|')
     print('V.' + version + '\t\t\t\tby @Escartem')
     print('')
-    print('==================================================\n')
+    print('=====================================================\n')
 
 
 class Mandelbrot:
@@ -81,7 +84,7 @@ class Mandelbrot:
         self.export()
 
     def export(self):
-        name = round(datetime.timestamp(datetime.now())*1000000)
+        name = round(datetime.timestamp(datetime.now()) * 1000000)
         self.img.save(str(name) + '.png')
         print('Saved as ' + str(name) + '.png')
         print('')
