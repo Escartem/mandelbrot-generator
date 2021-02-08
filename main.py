@@ -13,6 +13,8 @@ parser.add_argument("--repeat", type=int, help="The number of repetitions")
 parser.add_argument("--preset", type=str, help="Choose a preset")
 args = parser.parse_args()
 
+version = "1.1.0"
+
 presets = {
     "very_low": (50, 0.5),
     "low": (100, 1),
@@ -22,7 +24,7 @@ presets = {
     "extreme": (400, 4)
 }
 
-system('title Mandelbrot Generator')
+system('title Mandelbrot Generator - V.' + str(version))
 
 def title():
     system('color 3F')
@@ -40,7 +42,7 @@ def title():
     print('| | |_ |/ _ \ \'_ \ / _ \ \'__/ _` | __/ _ \| \'_|')
     print('| |__| |  __/ | | |  __/ | | (_| | || (_) | |')
     print(' \_____|\___|_| |_|\___|_|  \__,_|\__\___/|_|')
-    print('\t\t\t\tby @Escartem')
+    print('V.' + version + '\t\t\t\tby @Escartem')
     print('')
     print('==================================================\n')
 
