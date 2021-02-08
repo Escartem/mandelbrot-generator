@@ -128,7 +128,7 @@ def setup1():
         resolution = 1
     else:
         resolution = entry
-    print('Color modifier : (max: 255, recommended: 12)')
+    print('Saturation : (max: 255, recommended: 12)')
     try:
         entry = int(input("> "))
     except:
