@@ -3,15 +3,15 @@ from eta import ETA
 from PIL import Image
 from time import sleep
 from datetime import datetime
-# from argparse import ArgumentParser
+from argparse import ArgumentParser
 
-# parser = ArgumentParser()
+parser = ArgumentParser()
 # parser.add_argument("--iterations", type=int, help="Number of iterations")
 # parser.add_argument("--size", type=int, help="Resolution of image")
-# parser.add_argument("--color", type=int, help="The color modifier")
-# parser.add_argument("--repeat", type=int, help="The number of repetitions")
-# parser.add_argument("--preset", type=str, help="Choose a preset")
-# args = parser.parse_args()
+parser.add_argument("--color", type=int, help="The color modifier")
+parser.add_argument("--repeat", type=int, help="The number of repetitions")
+parser.add_argument("--preset", type=str, help="Choose a preset")
+args = parser.parse_args()
 
 presets = {
     "very_low": (50, 0.5),
@@ -84,72 +84,110 @@ class Mandelbrot:
         print('Saved as ' + str(name) + '.png')
         print('')
         print('==================================================\n')
-        for i in range(5):
-            print('Closing in ' + str(5-i), end='\r')
-            sleep(1)
+        system('pause')
 
 
-title()
-print('Setup :')
-print('Number of iterations : (max: 400, recommended: 100)')
-try:
-    entry = int(input("> "))
-except:
-    entry = 100
-if entry > 400:
-    iterations = 400
-elif entry < 1:
-    iterations = 1
-else:
-    iterations = entry
-print('Resolution of fractal : (max: 5, recommended: 1)')
-try:
-    entry = int(input("> "))
-except:
-    entry = 1
-if entry > 5:
-    resolution = 5
-elif entry < 1:
-    resolution = 1
-else:
-    resolution = entry
-print('Color modifier : (max: 255, recommended: 12)')
-try:
-    entry = int(input("> "))
-except:
-    entry = 12
-if entry > 255:
-    color = 255
-elif entry < 1:
-    color = 1
-else:
-    color = entry
-print('Fractal repeat : (max: 20, recommended: 1)')
-try:
-    entry = int(input("> "))
-except:
-    entry = 1
-if entry > 20:
-    repeat = 20
-elif entry < 1:
-    repeat = 1
-else:
-    repeat = entry
-print('')
-print('Configuration done !')
-print('Starting soon...')
-sleep(2.5)
+preset = None
 
-title()
-print("Generating a Mandelbrot fractal with the following settings :")
-# print("\t- Preset : " + str(preset))
-print("\t- Iterations : " + str(iterations))
-print("\t- Resolution : " + str(320 * resolution) + 'x' + str(222 * resolution) + 'px')
-print("\t- Color modifier : " + str(color))
-print("\t- Repeat : " + str(repeat))
-print('')
-print('==================================================\n')
-sleep(2)
 
-fractal = Mandelbrot(iterations, resolution, repeat, color)
-fractal.gen()
+def setup1():
+    title()
+    global iterations
+    global resolution
+    global color
+    global repeat
+    print('Setup :')
+    print('Number of iterations : (max: 400, recommended: 100)')
+    try:
+        entry = int(input("> "))
+    except:
+        entry = 100
+    if entry > 400:
+        iterations = 400
+    elif entry < 1:
+        iterations = 1
+    else:
+        iterations = entry
+    print('Resolution of fractal : (max: 5, recommended: 1)')
+    try:
+        entry = int(input("> "))
+    except:
+        entry = 1
+    if entry > 5:
+        resolution = 5
+    elif entry < 1:
+        resolution = 1
+    else:
+        resolution = entry
+    print('Color modifier : (max: 255, recommended: 12)')
+    try:
+        entry = int(input("> "))
+    except:
+        entry = 12
+    if entry > 255:
+        color = 255
+    elif entry < 1:
+        color = 1
+    else:
+        color = entry
+    print('Fractal repeat : (max: 20, recommended: 1)')
+    try:
+        entry = int(input("> "))
+    except:
+        entry = 1
+    if entry > 20:
+        repeat = 20
+    elif entry < 1:
+        repeat = 1
+    else:
+        repeat = entry
+    print('')
+    print('Configuration done !')
+    print('Starting soon...')
+    sleep(2.5)
+    setup2()
+
+
+def setup2():
+    title()
+    print("Generating a fractal with the following settings :")
+    if preset is not None:
+        print("\t- Preset : " + str(preset))
+    print("\t- Iterations : " + str(iterations))
+    print("\t- Resolution : " + str(round(320 * resolution)) + 'x' + str(round(222 * resolution)) + 'px')
+    print("\t- Color modifier : " + str(color))
+    print("\t- Repeat : " + str(repeat))
+    print('')
+    print('=====================================================\n')
+    sleep(2)
+
+    fractal = Mandelbrot(iterations, resolution, repeat, color)
+    fractal.gen()
+
+
+if args.preset is None or args.preset not in presets:
+    setup1()
+    preset = None
+else:
+    preset = args.preset
+    iterations = presets[args.preset][0]
+    resolution = presets[args.preset][1]
+    if args.color is not None:
+        if args.color > 255:
+            color = 255
+        elif args.color < 1:
+            color = 1
+        else:
+            color = args.color
+    else:
+        color = 12
+    if args.repeat is not None:
+        if args.repeat > 20:
+            repeat = 20
+        elif args.repeat < 1:
+            repeat = 1
+        else:
+            repeat = args.repeat
+    else:
+        repeat = 1
+    setup2()
