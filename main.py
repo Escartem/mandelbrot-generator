@@ -16,7 +16,7 @@ parser.add_argument("--repeat", type=int, help="The number of repetitions")
 parser.add_argument("--preset", type=str, help="Choose a preset")
 args = parser.parse_args()
 
-version = "1.1.0"
+version = "1.1.1"
 
 presets = {
     "very_low": (50, 0.5),
